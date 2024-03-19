@@ -1,0 +1,332 @@
+
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>PurrfectMatch</title>
+        <!-- Purrfectlogo lol-->
+        <link rel="icon" type="image/x-icon" href="{% static 'images/white_logo-removebg-preview.png' %}">
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{% static 'styles/home_page_css.css' %}" rel="stylesheet"/>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
+    </head>
+    <style>
+        body,html{
+            background-color: #030637;
+            font-size: 15px;
+        }
+        .transparent-navbar {
+        background-color: transparent;
+        }
+        .transparent-navbar .navbar-nav .nav-link {
+        color: white;
+        }
+        .transparent-navbar .dropdown-menu {
+        background-color: rgba(255,255,255,0.8);
+        }
+        .transparent-navbar .dropdown-menu .dropdown-item {
+        color: black;
+        }
+        .dropdown-item:hover {
+        background-color: #720455; 
+        color: #000; 
+        }
+        .hidden{
+            display: none;
+            align-content: center;
+        }
+        
+
+    </style>
+    <body>
+        <!-- Responsive navbar-->
+        {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+
+        <nav class="navbar navbar-expand-lg" style="background-image: url('{% static "images/purple_header_final.jpg" %}'); height:100px;">
+
+
+            <div class="container">
+                <a class="navbar-brand" href="#" style="color: white; font-size: 30px; margin-right: 0;">
+                    PurrfectMatch 
+                    <img src="{% static 'images/white_logo-removebg-preview.png' %}" style="height: 30px; margin-top: 0;">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="color: white;"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="petsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white;">Pets</a>
+                            <div class="dropdown-menu" aria-labelledby="petsDropdown">
+                                <a class="dropdown-item" href="{% url 'cats'%}">Cats</a>
+                                <a class="dropdown-item" href="{% url 'dogs'%}">Dogs</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white;">Pets Services</a>
+                            <div class="dropdown-menu" aria-labelledby="servicesDropdown">
+                                <a class="dropdown-item" href="#">Grooming</a>
+                                <a class="dropdown-item" href="#">Adoption</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="breedsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white;">Breeds</a>
+                            <div class="dropdown-menu" aria-labelledby="breedsDropdown">
+                                <a class="dropdown-item" href="{% url 'cat_breeds' %}">Cat Breeds</a>
+                                <a class="dropdown-item" href="{% url 'dog_breeds' %}">Dog Breeds</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="breedsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white;">List your Pets</a>
+                            <div class="dropdown-menu" aria-labelledby="breedsDropdown">
+                                <a class="dropdown-item" href="#">For Sale</a>
+                                <a class="dropdown-item" href="#">For Adoption</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            {% if user.is_authenticated %}
+                                <a class="nav-link dropdown-toggle" href="#" id="breedsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white;">My profile</a>
+                                <div class="dropdown-menu" aria-labelledby="breedsDropdown">
+                                    <a class="dropdown-item" href="{% url 'profile'%}">See Profile</a>
+                                    <form action="{% url 'logout' %}" method="post">
+                                        {% csrf_token %}
+                                        <button class="dropdown-item" type="submit">Logout</button>
+                                    </form>
+                                    <!--<a class="dropdown-item" href="{% url 'logout'%}">Log out</a>-->
+                                </div>
+                            {% else %}
+                            <a class="nav-link dropdown-toggle" href="#" id="breedsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white;">Login</a>
+                            <div class="dropdown-menu" aria-labelledby="breedsDropdown">
+                                <a class="dropdown-item" href="{% url 'login'%}">Login</a>
+                                <a class="dropdown-item" href="{% url 'sign_up'%}">Sign Up</a>
+                            </div>
+                            {% endif %}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Header - set the background image for the header in the line below-->
+        <header class="py-3 bg-image-full" style="background-image: url('{% static "images/allcatsdogsinwhite.jpeg" %}') ; height:340px;">
+            <div class="row justify-content-center">
+                <div class="btn-group btn-group-justified" style="width: 500px;">
+                    <!--<div class="input-group" style="width: 500px;">
+                        <input type="text" class="form-control" placeholder="Search pet" aria-label="Search" style="background-color: #8c7e923b;color:#8b31b18a">
+                        <input type="text" class="form-control" placeholder="City" aria-label="city" style="background-color: #8c7e923b;color:#8b31b18a">
+                        <button class="btn btn-outline-secondary bg-white border-start-0 border" type="button" style="color: #3C0753;">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>-->
+
+                    <form method="GET" action="{% url 'search_results' %}">
+                        <div class="input-group" style="width: 500px;">
+                            <!-- Combobox for selecting pet type -->
+                            <select class="form-control" name="pet_type" style="background-color: #8c7e923b;color:#8b31b18a">
+                                <option value="" disabled selected>Select Pet</option>
+                                <option value="cat">Cat</option>
+                                <option value="dog">Dog</option>
+                                <!-- Add more options as needed -->
+                            </select>
+                            
+                            <!-- Combobox for selecting city -->
+                            <select class="form-control" name="city" style="background-color: #8c7e923b;color:#8b31b18a">
+                                <option value="" disabled selected>Select City</option>
+                                <option value="Pune">Pune</option>
+                                <option value="Mumbai">Mumbai</option>
+                                <option value="Nashik">Nashik</option>
+                                <option value="Amravati">Amravati</option>
+                                <!-- Add more options as needed -->
+                            </select>
+                            
+                            <!-- Search button -->
+                            <button class="btn btn-outline-secondary bg-white border-start-0 border" type="submit" style="color: #3C0753;">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </form>
+                    
+                </div>
+                
+            </div>
+        </header>
+
+        <!--Add pet button-->
+        <br>
+        <div class="row justify-content-center">
+            <button type="button" class="btn btn-light" style="width: 230px; border-radius: 20px;" onclick="toggleOptions('petOptions')">
+                Add Pet +
+            </button>
+            <div id="petOptions" class="col-12 text-center hidden" style="padding-top: 10px;">
+                <button onclick="selectPet('cat')" class="btn btn" style="width: 130px; border-radius: 7px;background-color: #7204558d;color:white;">Cat</button>
+                <button onclick="selectPet('dog')" class="btn btn" style="width: 130px; border-radius: 7px;background-color: #7204558d;color:white;">Dog</button>
+            </div>
+            <script>
+            function toggleOptions(optionId) {
+                var option = document.getElementById(optionId);
+                option.classList.toggle("hidden");
+            }
+            
+            function selectPet(pet) {
+                if (pet === 'cat') {
+                    window.location.href = "{% url 'add_cat' %}";
+                } else if (pet === 'dog') {
+                    window.location.href = "{% url 'add_dog' %}";
+                }
+            }
+            </script>            
+        </div>
+        <br>
+
+        <!--Main body-->
+        <section class="py-1">
+            <div class="container-fluid">
+                <div class="row">
+                    <!-- Left side with 3 containers -->
+                    <div class="col-md-3">
+                        <div class="container py-2 mb-3" style="background-color: #3C0753;padding: 20px;">
+                            <p style="border-bottom: 1px solid rgba(255, 255, 255, 0.397);color: white;padding: 10px;">I'm Looking</p>
+                            <ul style="color: white;padding: 10px;">
+                                <li><a href="#" style="color: white;text-decoration: none;">For Adoption</a><br><br></li>
+                                <li><a href="#" style="color: white; text-decoration: none;">For Re-homing my pet</a></li>
+                            </ul>
+                        </div>
+                        <div class="container py-2 mb-3" style="background-color: #3C0753;padding: 20px;">
+                            <p style="border-bottom: 1px solid rgba(255, 255, 255, 0.397);color: white;padding: 10px;">Pet Category</p>
+                            <ul style="color: white;padding: 10px;">
+                                <li><a href="{% url 'cats'%}" style="color: white;text-decoration: none;">Cat</a><br><br></li>
+                                <li><a href="{% url 'dogs'%}" style="color: white; text-decoration: none;">Dog</a></li>
+                            </ul>
+                        </div>
+                        <div class="container py-2 mb-3" style="background-color: #3C0753;padding: 20px;">
+                            <p style="border-bottom: 1px solid rgba(255, 255, 255, 0.397);color: white;padding: 10px;">Gender</p>
+                            <ul style="color: white;padding: 10px;">
+                                <li><a href="#" style="color: white;text-decoration: none;">Male</a><br><br></li>
+                                <li><a href="#" style="color: white; text-decoration: none;">Female</a></li>
+                            </ul>
+                        </div>
+                        <div class="container py-2 mb-3" style="background-color: #3C0753;padding: 20px;">
+                            <p style="border-bottom: 1px solid rgba(255, 255, 255, 0.397);color: white;padding: 10px;">Most Popular Breeds in India</p>
+                            <ul style="color: white;padding: 10px;">
+                                <li><a href="#" style="color: white;text-decoration: none;">Persian</a></li>
+                                <li><a href="#" style="color: white;text-decoration: none;">Golden Retriever</a></li>
+                                <li><a href="#" style="color: white; text-decoration: none;">German Shepherd</a></li>
+                                <li><a href="#" style="color: white; text-decoration: none;">Rottweiler</a></li>
+                                <li><a href="#" style="color: white; text-decoration: none;">Indie Cats</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Right side with 1 container -->
+                    <div class="col-md-9">
+                        <div class="container py-0" style="background-color:#4E1F62;">
+                            <div class="row">
+                                <div class="row justify-content-center" style="color:white;">
+                                    <div style="text-align: center;font-size: 20px;padding-bottom: 3px;padding-top: 3px;">Available Pets</div><br>
+                                    <div style="text-align: center;padding-bottom: 20px;">Choose and Explore Your Purrfect Match!!</div>
+                                </div>
+
+                                <!-- Left side: three cat cards -->
+                                {% for cat in pets%}
+                                <div class="col-md-4" style="padding-bottom: 20px;">
+                                    <div class="card h-100 card-custom">
+                                        <img class="card-img-top" src="{{ cat.image.url }}" alt="Cat image">
+                                        <div class="card-body">
+                                            <h4 class="card-title">{{ cat.name }}</h4>
+                                            <p class="card-text">{{ cat.description }}</p>
+                                            <a href="#" class="btn btn-primary">See Profile</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </section>
+
+        <div class="row justify-content-end" style="padding: 20px;">
+            <p style="color:white;text-align: end;font-size:13px;">Page {{ page_number }} of {{ total_pages }}</p>
+            <a href="#" class="btn btn-light" style="width: 150px; border-radius: 10px;color:#720455;">Next Page</a>
+        </div>
+        
+
+        <!-- Footer-->
+        <footer class="py-2" style="background-color:#720455;color: #fff; margin: 0;">
+            <div class="container-fluid" style="margin: 0;">
+                <div class="row" style="padding: 20px;">
+                    <div class="col-md-3">
+                        <p><b>RESOURCES</b></p>
+                        <a href="#" style="color: white;text-decoration: none;">FAQs</a><br>
+                        <a href="#" style="color: white;text-decoration: none;">Contact Us</a><br><br>
+                    </div>
+                    <div class="col-md-3">
+                        <p><b>ABOUT DOGS & PUPPIES</b></p>
+                        <a href="#" style="color: white;text-decoration: none;">All About Dogs & Puppies</a><br>
+                        <a href="#" style="color: white;text-decoration: none;">Dog Adoption</a><br>
+                        <a href="#" style="color: white;text-decoration: none;">Dog Breeds</a><br>
+                        <a href="#" style="color: white;text-decoration: none;">Feeding Your Dog</a><br>
+                        <a href="#" style="color: white;text-decoration: none;">Dog Behavior</a><br>
+                    </div>
+                    <div class="col-md-3">
+                        <p><b>ABOUT CATS & KITTENS</b></p>
+                        <a href="#" style="color: white;text-decoration: none;">All About Cats & Kittens</a><br>
+                        <a href="#" style="color: white;text-decoration: none;">Cat Adoption</a><br>
+                        <a href="#" style="color: white;text-decoration: none;">Cat Breeds</a><br>
+                        <a href="#" style="color: white;text-decoration: none;">Feeding Your Cat</a><br>
+                        <a href="#" style="color: white;text-decoration: none;">Cat Behavior</a><br>
+                    </div>
+                </div>
+            </div><br>
+            <div class="container-fluid" style="margin: 0;">
+                <div class="row">
+                    <div class="col-md-8">
+                        <p class="m-0 text-left text-white">&copy; 2024-2025 Purrfect Pet Services Private Limited. All Rights Reserved.</p>
+                    </div>
+                    <div class="col-md-4 d-flex justify-content-end" style="margin: 0;align-self: end;">
+                        <button type="button" class="btn btn-link btn-floating mx-1" style="color: white;">
+                            <i class="fab fa-facebook-f"></i>
+                        </button>
+                        <button type="button" class="btn btn-link btn-floating mx-1" style="color: white;">
+                            <i class="fab fa-google"></i>
+                        </button>
+                        <button type="button" class="btn btn-link btn-floating mx-1" style="color: white;">
+                            <i class="fab fa-twitter"></i>
+                        </button>
+                        <button type="button" class="btn btn-link btn-floating mx-1" style="color: white;">
+                            <i class="fab fa-github"></i>
+                        </button>
+                        
+                    </div>
+                </div>
+            </div>
+        </footer>
+        
+
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        
+        <!-- Core theme JS-->
+        
+    </body>
+</html>

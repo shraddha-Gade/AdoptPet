@@ -64,7 +64,8 @@
     <body>
         <!-- Responsive navbar-->
 
-        <nav class="navbar navbar-expand-lg" style="background-image: url('{% static "images/purple_header_final.jpg" % }') ;height:100px;">
+        <nav class="navbar navbar-expand-lg" style="background-image: url('{% static "images/purple_header_final.jpg" %}'); height: 100px;">
+
             <div class="container">
                 <a class="navbar-brand" href="#!" style="color: white; font-size: 30px; margin-right: 0;">
                     PurrfectMatch 
@@ -114,35 +115,39 @@
         </nav>
         
         <!-- Header - set the background image for the header in the line below-->
-        <header class="py-3 bg-image-full d-flex align-items-center justify-content-center" style="background-image: url("{% static 'images/cat_breeds.png' % } ") ; height:340px;">
+        <header class="py-3 bg-image-full d-flex align-items-center justify-content-center" style="background-image: url('{% static 'images/cat_breeds.png' %}'); height: 340px;">
+
             <div class="row justify-content-center">
                 <div class="box rounded text-center">
                     <h6><a href="{% url 'home' %}">Home</a> > Breeds > Cat Breeds</h6>
                     <h5>Discover your perfect furry friend</h5>
                     <br>
+                    <form method="GET" action="{% url 'available_cat_breeds' %}">
                     <div class="row justify-content-center">
+                       
                         <div class="col-4">
                             <select class="form-select" id="petBreed" name = "pet_breed" style="width: 160px;">
                                 <option value="" disabled selected>Select a breed</option>
-                                <option value="persian">Persian cat</option>
-                                <option value="indiecat">Indie cat</option>
-                                <option value="siamese">Siamese cat</option>
-                                <option value="himalayan">Himalayan cat</option>
+                                <option value="" disabled selected>Select a breed</option>
+                                <option value="Siamese cat">Siamese cat</option>
+                                <option value="British Shorthair">British Shorthair</option>
+                                <option value="Persian Cat">Persian Cat</option>
                             </select>
                         </div>
                         <div class="col-4">
                             <select class="form-select" id="petCity" name = "pet_city" required style="width: 160px;">
                                 <option value="" disabled selected>Select a city</option>
-                                <option value="pune">Pune</option>
-                                <option value="mumbai">Mumbai</option>
-                                <option value="nashik">Nashik</option>
-                                <option value="amravati">Amravati</option>
+                                <option value="Pune">Pune</option>
+                                <option value="Mumbai">Mumbai</option>
+                                <option value="Nashik">Nashik</option>
+                                <option value="Amravati">Amravati</option>
                             </select>      
                         </div>
                         <div class="col-4 justify-content-center">
                             <button type="submit" id="submitBtn" style="color:white;background-color: #3c0753;border: none;padding: 8px; border-radius: 5px;width: 160px;">Search</button>
                         </div>
-                    </div>
+                        
+                    </div></form>
                 </div>
             </div>
         </header>

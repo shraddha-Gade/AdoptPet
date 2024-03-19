@@ -1,4 +1,5 @@
 from django.db import models
+from sign_up.models import CustomUser
 
 # Create your models here.
 class Cat(models.Model):
@@ -12,6 +13,8 @@ class Cat(models.Model):
     description = models.TextField(blank = True)
     image = models.ImageField(upload_to = 'cat_images/')
     is_available = models.BooleanField(default=True)
+    added_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE , default='',null = True)
+
 
     
 class Dog(models.Model):
@@ -25,5 +28,7 @@ class Dog(models.Model):
     description = models.TextField(blank = True)
     image = models.ImageField(upload_to = 'dog_images/')
     is_available = models.BooleanField(default=True)
+    added_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE ,default=3,null = True)
+
 
     

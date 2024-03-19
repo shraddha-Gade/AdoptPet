@@ -1,122 +1,269 @@
 {% load static %}
-
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Registration Form</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 </head>
 <link rel="stylesheet" href="{% static 'styles/sign_up_css.css' %}">
 <body>
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-            <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
-{% endif %}
-
-    <div class="box rounded">
-        <div class="h3">Sign Up</div>
-        <form action="{% url 'signup_submit' %}" method="POST" class="form">
-            {% csrf_token %}
-            <div class="row">
-                <div class="col-6">
-                    <label for="name">First Name :</label>
-                </div>
-                <div class="col-6">
-                    <input type="text" class="form-control" placeholder="First Name" name="first_name">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    <label for="name">Last Name :</label>
-                </div>
-                <div class="col-6">
-                    <input type="text" class="form-control" placeholder="Last Name" name="last_name">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    <label for="name">Username :</label>
-                </div>
-                <div class="col-6">
-                    <input type="text" class="form-control" placeholder="Username" name="user_name">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    <label for="no1">Contact No : </label>
-                </div>
-                <div class="col-6">
-                    <input type="text" class="form-control"name="contact_no" placeholder="Contact No">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    <label for="em">Email : </label>
-                </div>
-                <div class="col-6">
-                    <input type="email" class="form-control"name="email" placeholder="Email ID">
-                </div>
-            </div>  
-            <div class="row">
-                <div class="col-6">
-                    <label for="ps">Create Password : </label>
-                </div>
-                <div class="col-6">
-                    <input type="password" class="form-control" name="password" placeholder="Password">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    <label>Gender :</label>
-                </div>
-                <div class="col-6">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="mgen" name="gender" value="Male">
-                        <label class="form-check-label" for="mgen">Male</label>
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">Sign Up</div>
+                    <div class="card-body">
+                        <form id="registrationForm" action="{% url 'signup_submit' %}" method="POST" class="needs-validation" novalidate>
+                            {% csrf_token %}
+                            {% if messages %}
+                            <div class="alert alert-danger">
+                                <ul class="mb-0">
+                                    {% for message in messages %}
+                                    <li>{{ message }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            {% endif %}
+                            <div class="row">
+                                <div class="col-6">
+                                    <label for="name">First Name :</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="text" class="form-control" placeholder="First Name" name="first_name" id="firstName" required>
+                                    <span id="firstNameError" style="color: red;"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <label for="name">Last Name :</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="text" class="form-control" placeholder="Last Name" name="last_name" id="lastName" required>
+                                    <span id="lastNameError" style="color: red;"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <label for="name">Username :</label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="text" class="form-control" placeholder="Username" name="user_name" id="userName" required>
+                                    <span id="userNameError" style="color: red;"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <label for="no1">Contact No : </label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="text" class="form-control" name="contact_no" placeholder="Contact No" id="contactNo" required>
+                                    <span id="contactNoError" style="color: red;"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <label for="em">Email : </label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="email" class="form-control" name="email" placeholder="Email ID" id="email" required>
+                                    <span id="emailError" style="color: red;"></span>
+                                </div>
+                            </div>  
+                            <div class="row">
+                                <div class="col-6">
+                                    <label for="ps">Create Password : </label>
+                                </div>
+                                <div class="col-6">
+                                    <input type="password" class="form-control" name="password" placeholder="Password" id="password" required>
+                                    <span id="passwordError" style="color: red;"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <label>Gender :</label>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" id="maleGender" name="gender" value="Male" required>
+                                        <label class="form-check-label" for="maleGender">Male</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" id="femaleGender" name="gender" value="Female" required>
+                                        <label class="form-check-label" for="femaleGender">Female</label>
+                                    </div>
+                                    <span id="genderError" style="color: red;"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <label for="city">City :</label>
+                                </div>
+                                <div class="col-6">
+                                    <select class="form-control" id="city" name="city" required>
+                                        <option value="Pune">Pune</option>
+                                        <option value="Mumbai">Mumbai</option>
+                                        <option value="Nashik">Nashik</option>
+                                        <option value="Satara">Satara</option>
+                                    </select>
+                                    <span id="cityError" style="color: red;"></span>
+                                </div>
+                            </div>
+                            <br>
+                            <!-- Add other form fields similarly -->
+                            <div class="row">
+                                <div class="col-12" style="text-align: center;">
+                                    <button type="submit" id="submitBtn" style="color:white;background-color: #3c0753b3;border: none;padding: 8px; border-radius: 5px;width: 200px;"disabled>Create Account</button>
+                                </div>
+                            </div>
+                        </form>
+                        
                     </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" id="fgen" name="gender" value="Female">
-                        <label class="form-check-label" for="fgen">Female</label>
-                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-6">
-                    <label for="city">City :</label>
-                </div>
-                <div class="col-6">
-                    <select class="form-control" id="city" name="city">
-                        <option value="city1">Pune</option>
-                        <option value="city2">Mumbai</option>
-                        <option value="city3">Nashik</option>
-                        <option value="city4">Satara</option>
-                    </select>
-                </div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-12" style="text-align: center;">
-                    <button type="submit"id="submitBtn" style="color:white;background-color: #3c0753b3;border: none;padding: 8px; border-radius: 5px;width: 200px;">Create Account</button>
-                </div>
-            </div>
-        </form>
+        </div>
     </div>
-</body>
-<script>
-    document.getElementById('submitBtn').addEventListener('click', async function () {
-        const form = document.getElementById('registrationForm');
-        const formData = new FormData(form);
-        const response = await fetch('/register', {
-            method: 'POST',
-            body: formData,
+
+    <script>
+        // Get references to form elements
+        const registrationForm = document.getElementById('registrationForm');
+        const submitBtn = document.getElementById('submitBtn');
+    
+        const firstNameInput = document.getElementById('firstName');
+        const lastNameInput = document.getElementById('lastName');
+        const userNameInput = document.getElementById('userName');
+        const contactNoInput = document.getElementById('contactNo');
+        const emailInput = document.getElementById('email');
+        const passwordInput = document.getElementById('password');
+    
+        // Add event listeners for input event on the input fields
+        firstNameInput.addEventListener('input', validateForm);
+        lastNameInput.addEventListener('input', validateForm);
+        userNameInput.addEventListener('input', validateForm);
+        contactNoInput.addEventListener('input', validateForm);
+        emailInput.addEventListener('input', validateForm);
+        passwordInput.addEventListener('input', validateForm);
+    
+        // Disable submit button by default
+        submitBtn.disabled = true;
+    
+        // Function to validate the entire form
+        function validateForm() {
+            // Perform validation for each input field
+            const isValidFirstName = validateFirstName();
+            const isValidLastName = validateLastName();
+            const isValidUserName = validateUsername();
+            const isValidContactNo = validateContactNo();
+            const isValidEmail = validateEmail();
+            const isValidPassword = validatePassword();
+    
+            // Enable or disable the submit button based on validation results
+            submitBtn.disabled = !(isValidFirstName && isValidLastName && isValidUserName && isValidContactNo && isValidEmail && isValidPassword);
+        }
+    
+        // Validation function for first name
+        function validateFirstName() {
+            const firstName = firstNameInput.value.trim();
+            const regex = /^[a-zA-Z' ]+$/;
+            const firstNameError = document.getElementById('firstNameError');
+            if (!regex.test(firstName)) {
+                firstNameError.textContent = 'Invalid input. Only alphabets are allowed.';
+                return false;
+            } else {
+                firstNameError.textContent = '';
+                return true;
+            }
+        }
+    
+        // Validation function for last name
+        function validateLastName() {
+            const lastName = lastNameInput.value.trim();
+            const regex = /^[a-zA-Z' ]+$/;
+            const lastNameError = document.getElementById('lastNameError');
+            if (!regex.test(lastName)) {
+                lastNameError.textContent = 'Invalid input. Only alphabets and apostrophe are allowed.';
+                return false;
+            } else {
+                lastNameError.textContent = '';
+                return true;
+            }
+        }
+    
+        // Validation function for username
+        function validateUsername() {
+            const userName = userNameInput.value.trim();
+            const userNameError = document.getElementById('userNameError');
+            if (userName.length < 4 || userName.length > 10) {
+                userNameError.textContent = 'Username must be between 4 and 10 characters long.';
+                return false;
+            } else if (!/^[a-zA-Z0-9]+$/.test(userName)) {
+                userNameError.textContent = 'Username can only contain alphanumeric characters.';
+                return false;
+            } else {
+                userNameError.textContent = '';
+                return true;
+            }
+        }
+    
+        // Validation function for contact number
+        function validateContactNo() {
+            const contactNo = contactNoInput.value.trim();
+            const regex = /^\d{10}$/; // Regex to match exactly 10 digits
+            const contactNoError = document.getElementById('contactNoError');
+            if (!regex.test(contactNo)) {
+                contactNoError.textContent = 'Contact number must be exactly 10 digits long.';
+                return false;
+            } else {
+                contactNoError.textContent = '';
+                return true;
+            }
+        }
+    
+        // Validation function for email
+        function validateEmail() {
+            const email = emailInput.value.trim();
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Regex for basic email pattern
+            const emailError = document.getElementById('emailError');
+            if (!regex.test(email)) {
+                emailError.textContent = 'Invalid email format.';
+                return false;
+            } else {
+                emailError.textContent = '';
+                return true;
+            }
+        }
+    
+        // Validation function for password
+        function validatePassword() {
+            const password = passwordInput.value.trim();
+            const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])(?=.{8,})/;
+            const passwordError = document.getElementById('passwordError');
+            if (!regex.test(password)) {
+                passwordError.textContent = 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one digit, and one special character (!@#$%^&*).';
+                return false;
+            } else {
+                passwordError.textContent = '';
+                return true;
+            }
+        }
+    
+        // Add event listener to the form for submit event
+        registrationForm.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+            if (submitBtn.disabled) {
+                return; // If submit button is disabled, do not submit the form
+            }
+            // Redirect to another page
+            window.location.href = '{% url "signup_submit" %}';
         });
-        const result = await response.text();
-        console.log(result);
-    });
-</script>
+    </script>    
+    
+</body>
 </html>

@@ -1,10 +1,14 @@
 from django.shortcuts import render
-from sign_up.models import User
+from sign_up.models import CustomUser
 from django.contrib.auth.decorators import login_required
+from pet_rehome.models import Cat, Dog
 
 # Create your views here.
 def home_page(request):
-    return render(request, 'home_page.html')
+    available_cats = Cat.objects.filter(is_available = True)
+    available_dogs = Dog.objects.filter(is_available = True)
+    return render(request , 'home_page.html' , {'available_cats' : available_cats , 'available_dogs' : available_dogs})
+    #return render(request, 'home_page.html')
 
 
 def cat_breeds(request):
@@ -22,8 +26,3 @@ def Myprofile(request):
         'user': user
     }
     return render(request, 'profile.html', context)
-
-def display_available(request):
-    available_cats = Cat.objects.filter(is_available = True)
-    available_cats = Dog.objects.filter(is_available = True)
-    return render(request , 'home_page.html' , {'available_cats' : available_cats , 'available_dogs' : available_dogs})
